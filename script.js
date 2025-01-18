@@ -44,6 +44,7 @@ function addRecord() {
 
 function sendEmailNotification(animalName, recordType, recordDate, details) {
     const templateParams = {
+        to_email: "danialvis0987@yahoo.com", // Replace with your recipient email
         animal_name: animalName,
         record_type: recordType,
         record_date: recordDate,
@@ -51,13 +52,13 @@ function sendEmailNotification(animalName, recordType, recordDate, details) {
     };
 
     emailjs
-        .send("service_s81t1xq", "template_ub4i2qm", templateParams)
+        .send("service_s81t1xq", "template_ub4i2qm", templateParams) // Replace with your Service ID and Template ID
         .then(() => {
-            alert("Email sent successfully!"); // Success notification
+            alert("Email sent successfully!");
             console.log("Email sent successfully!");
         })
         .catch((error) => {
-            alert("Failed to send email. Please check your configuration."); // Error notification
+            alert("Failed to send email. Please check the configuration.");
             console.error("Error sending email:", error);
         });
 }
