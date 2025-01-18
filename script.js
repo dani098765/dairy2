@@ -44,7 +44,6 @@ function addRecord() {
 
 function sendEmailNotification(animalName, recordType, recordDate, details) {
     const templateParams = {
-        to_email: "danialvis0987@yahoo.com",
         animal_name: animalName,
         record_type: recordType,
         record_date: recordDate,
