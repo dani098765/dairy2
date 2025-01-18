@@ -1,0 +1,145 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #f7f8fa, #e2e8f0);
+    color: #333;
+}
+
+header {
+    background: linear-gradient(to right, #6A11CB, #2575FC);
+    padding: 20px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+header p {
+    font-size: 1.2em;
+    margin: 5px 0 0;
+}
+
+/* Images */
+.header-image, .section-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Login Page */
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    color: #6A11CB;
+}
+
+form input, form button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+
+form button {
+    background: linear-gradient(to right, #6A11CB, #2575FC);
+    color: white;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+form button:hover {
+    background: linear-gradient(to right, #2575FC, #6A11CB);
+}
+
+/* Dashboard */
+.dashboard-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.tabs button {
+    padding: 15px 20px;
+    background: linear-gradient(to right, #2575FC, #6A11CB);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.tabs button:hover {
+    transform: scale(1.1);
+    background: linear-gradient(to right, #6A11CB, #2575FC);
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+/* Records List */
+.records-list {
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #e2e8f0;
+    color: #555;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+footer a {
+    color: #6A11CB;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
