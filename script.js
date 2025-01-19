@@ -51,16 +51,30 @@ const feeds = [
   // Add additional feeds as needed...
 ];
 
-// Initialize feed selection inputs dynamically
-const feedSelectionDiv = document.getElementById("feedSelection");
+// Populate the feed selection dropdown
+const feedSelect = document.getElementById("feedSelect");
 feeds.forEach(feed => {
-  const feedDiv = document.createElement("div");
-  feedDiv.innerHTML = `
-    <label>
-      ${feed.name} Price ($/kg):
-      <input type="number" data-feed="${feed.name}" class="feedPrice" required>
-    </label>`;
-  feedSelectionDiv.appendChild(feedDiv);
+  const option = document.createElement("option");
+  option.value = feed.name;
+  option.textContent = feed.name;
+  feedSelect.appendChild(option);
+});
+
+// Handle feed selection
+feedSelect.addEventListener("change", () => {
+  const selectedOptions = Array.from(feedSelect.selectedOptions).map(option => option.value);
+  const selectedFeedsDiv = document.getElementById("selectedFeeds");
+  selectedFeedsDiv.innerHTML = ""; // Clear previous selections
+
+  selectedOptions.forEach(feedName => {
+    const feedInputDiv = document.createElement("div");
+    feedInputDiv.innerHTML = `
+      <label>
+        ${feedName} Price ($/kg):
+        <input type="number" data-feed="${feedName}" class="feedPrice" required>
+      </label>`;
+    selectedFeedsDiv.appendChild(feedInputDiv);
+  });
 });
 
 // Handle form submission
@@ -82,15 +96,15 @@ document.getElementById("feedForm").addEventListener("submit", function (e) {
     feedPrices[input.dataset.feed] = parseFloat(input.value);
   });
 
+  // Filter selected feeds
+  const selectedFeeds = feeds.filter(feed => Object.keys(feedPrices).includes(feed.name));
+
   // Optimize feed formulation
   const feedPlan = [];
   let totalCost = 0;
 
-  feeds.forEach(feed => {
-    const energyContribution = feed.energy;
+  selectedFeeds.forEach(feed => {
     const proteinContribution = feed.protein;
-
-    // Inclusion rate based on limiting nutrient (protein in this case)
     const inclusionRate = proteinRequirement / proteinContribution;
     const cost = inclusionRate * feedPrices[feed.name];
 
