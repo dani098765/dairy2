@@ -1,67 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feed Calculation Web App</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feed Calculator</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Feed Calculation Web App</h1>
-        <p>Optimize your feed formulation for cost-effectiveness</p>
-    </header>
+  <div class="container">
+    <h1>Feed Calculator</h1>
+    <form id="feedForm">
+      <label for="weight">Weight (kg):</label>
+      <input type="number" id="weight" name="weight" required>
 
-    <main>
-        <section id="feed-formulation">
-            <h2>Feed Formulation</h2>
-            <form id="formulation-form">
-                <label for="animal-weight">Animal Weight (kg):</label>
-                <input type="number" id="animal-weight" placeholder="Enter animal weight" required>
+      <label for="activity">Activity Level:</label>
+      <select id="activity" name="activity">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
 
-                <label for="milk-production">Milk Production (liters):</label>
-                <input type="number" id="milk-production" placeholder="Enter milk production" required>
+      <button type="submit">Calculate</button>
+    </form>
 
-                <label for="fat-percentage">Fat Percentage (%):</label>
-                <input type="number" id="fat-percentage" placeholder="Enter fat percentage" required>
-
-                <label for="feed-selection">Select Feeds:</label>
-                <div id="feed-selection">
-                    <!-- Dynamic feed dropdowns will be added here -->
-                </div>
-
-                <button type="button" id="add-feed">Add Feed</button>
-
-                <div id="feed-inputs">
-                    <!-- User-selected feed inputs will be displayed here -->
-                </div>
-
-                <button type="submit">Calculate Feed</button>
-            </form>
-
-            <div id="formulation-results" style="display: none;">
-                <h3>Optimal Feed Formulation</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Feed</th>
-                            <th>Inclusion (kg)</th>
-                            <th>Unit Price (PKR)</th>
-                            <th>Total Cost (PKR)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="result-rows">
-                        <!-- Calculation results will be displayed here -->
-                    </tbody>
-                </table>
-                <p id="total-cost"></p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Feed Calculation Web App. All Rights Reserved.</p>
-    </footer>
+    <div id="results" class="hidden">
+      <h2>Feed Plan</h2>
+      <ul id="feedPlan"></ul>
+      <h3>Requirements</h3>
+      <p id="protein"></p>
+      <p id="energy"></p>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
