@@ -1,6 +1,6 @@
 // Mock data for feed ingredients (50 items)
 const feeds = [
-      { name: "Barley", energy: 1.86, protein: 8.92, calcium: 0.06, phosphorus: 0.39 },
+  { name: "Barley", energy: 1.86, protein: 8.92, calcium: 0.06, phosphorus: 0.39 },
       { name: "Soybean", energy: 1.80, protein: 48.0, calcium: 0.20, phosphorus: 0.40 },
       { name: "Maize", energy: 1.96, protein: 9.8, calcium: 0.04, phosphorus: 0.3 },
       { name: "Wheat", energy: 1.95, protein: 11.0, calcium: 0.05, phosphorus: 0.35 },
@@ -48,7 +48,7 @@ const feeds = [
       { name: "Palm Kernel Meal", energy: 1.80, protein: 15.0, calcium: 0.25, phosphorus: 0.2 },
       { name: "Cassava", energy: 2.10, protein: 3.0, calcium: 0.2, phosphorus: 0.1 },
       { name: "Sweet Potato", energy: 2.00, protein: 4.0, calcium: 0.15, phosphorus: 0.1 }
-  // Add additional feeds as needed...
+  // Add more feeds here...
 ];
 
 // Populate the feed selection dropdown
