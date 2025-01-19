@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Feed Formulation</title>
+  <title>Dairy Feed Formulation</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>Feed Formulation Tool</h1>
+    <h1>Dairy Feed Formulation</h1>
     <form id="feedForm">
       <h3>Animal Details</h3>
       <label for="weight">Animal Weight (kg):</label>
@@ -21,7 +21,10 @@
       <input type="number" id="fatPercentage" name="fatPercentage" step="0.1" required>
 
       <h3>Feed Selection</h3>
-      <div id="feedSelection"></div>
+      <label for="feedSelect">Select Feeds:</label>
+      <select id="feedSelect" multiple></select>
+
+      <div id="selectedFeeds"></div>
 
       <button type="submit">Calculate</button>
     </form>
