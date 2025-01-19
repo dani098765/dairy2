@@ -11,6 +11,10 @@ const users = {
 // Current logged-in user
 let currentUser = null;
 
+// All records data
+const records = [];
+
+// Login Functionality
 function login() {
     const username = document.getElementById("loginUsername").value.toLowerCase();
     const password = document.getElementById("loginPassword").value;
@@ -27,6 +31,7 @@ function login() {
     }
 }
 
+// Configure Dashboard Based on Permissions
 function configureDashboard(permissions) {
     const tabs = {
         birthDeathTab: "birthDeath",
@@ -46,45 +51,105 @@ function configureDashboard(permissions) {
     }
 }
 
+// Show Section
 function showSection(sectionId) {
     document.querySelectorAll(".section").forEach(section => section.classList.add("hidden"));
     document.getElementById(sectionId).classList.remove("hidden");
 }
 
-function addRecord() {
-    const animalName = document.getElementById("animalName").value;
-    const recordDate = document.getElementById("recordDate").value;
-    const details = document.getElementById("details").value;
+// Add Record
+function addRecord(type) {
+    let recordDetails = {};
+    const currentDate = new Date().toISOString().split("T")[0];
 
-    if (animalName && recordDate && details) {
-        alert("Record added successfully!");
+    if (type === "birthDeath") {
+        const animalName = document.getElementById("animalName").value;
+        const recordDate = document.getElementById("recordDate").value || currentDate;
+        const details = document.getElementById("details").value;
 
-        // Send Email Notification
-        sendEmailNotification("Birth/Death Entry", animalName, recordDate, details);
+        if (animalName && details) {
+            recordDetails = {
+                date: recordDate,
+                type: "Birth/Death",
+                description: `Animal: ${animalName}, Details: ${details}`,
+            };
+            sendEmailNotification("Birth/Death Entry", animalName, recordDate, details);
+        } else {
+            alert("Please fill out all fields for Birth/Death Entry.");
+            return;
+        }
+    } else if (type === "feedManagement") {
+        const feedType = document.getElementById("feedType").value;
+        const quantity = document.getElementById("feedQuantity").value;
+        const feedDate = document.getElementById("feedDate").value || currentDate;
 
+        if (feedType && quantity) {
+            recordDetails = {
+                date: feedDate,
+                type: "Feed Management",
+                description: `Feed Type: ${feedType}, Quantity: ${quantity} kg`,
+            };
+            sendEmailNotification("Feed Management", feedType, feedDate, `Quantity: ${quantity} kg`);
+        } else {
+            alert("Please fill out all fields for Feed Management.");
+            return;
+        }
+    }
+
+    records.push(recordDetails);
+    updateRecordsTable();
+    alert("Record added successfully!");
+    resetForm(type);
+}
+
+// Update Records Table
+function updateRecordsTable() {
+    const tableBody = document.querySelector("#recordsTable tbody");
+    tableBody.innerHTML = "";
+
+    records.sort((a, b) => new Date(a.date) - new Date(b.date)).forEach((record) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${record.date}</td>
+            <td>${record.type}</td>
+            <td>${record.description}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+// Reset Form
+function resetForm(type) {
+    if (type === "birthDeath") {
         document.getElementById("birthDeathForm").reset();
-    } else {
-        alert("Please fill out all fields.");
-    }
-}
-
-function addFeed() {
-    const feedType = document.getElementById("feedType").value;
-    const feedQuantity = document.getElementById("feedQuantity").value;
-    const feedDate = document.getElementById("feedDate").value;
-
-    if (feedType && feedQuantity && feedDate) {
-        alert("Feed record added successfully!");
-
-        // Send Email Notification
-        sendEmailNotification("Feed Management", feedType, feedDate, `Quantity: ${feedQuantity} kg`);
-
+    } else if (type === "feedManagement") {
         document.getElementById("feedForm").reset();
-    } else {
-        alert("Please fill out all fields.");
     }
 }
 
+// Add Economics Record
+function addEconomicsRecord() {
+    const econType = document.getElementById("expenseType").value;
+    const amount = document.getElementById("amount").value;
+    const econDate = document.getElementById("econDate").value;
+
+    if (econType && amount && econDate) {
+        const record = {
+            date: econDate,
+            type: "Economics",
+            description: `${econType}: $${amount}`,
+        };
+
+        records.push(record);
+        updateRecordsTable();
+        alert("Economics record added successfully!");
+        document.getElementById("economicsForm").reset();
+    } else {
+        alert("Please fill out all fields for Economics.");
+    }
+}
+
+// Send Email Notification
 function sendEmailNotification(recordType, recordName, recordDate, details) {
     const templateParams = {
         to_email: "danialvis0987@yahoo.com",
