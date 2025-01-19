@@ -5,189 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dairy Care Management System</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-
-        header {
-            background: linear-gradient(90deg, #0073e6, #004080);
-            color: #ffffff;
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-
-        header p {
-            margin: 0.5rem 0 0;
-            font-size: 1.2rem;
-            font-style: italic;
-        }
-
-        .login-container, .dashboard-container {
-            background-color: #ffffff;
-            margin: 2rem auto;
-            max-width: 800px;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        input, textarea, button {
-            width: calc(100% - 2rem);
-            margin: 1rem auto;
-            padding: 0.8rem;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button {
-            background-color: #004080;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .tabs button {
-            border-radius: 20px;
-            border: 1px solid #ddd;
-            padding: 0.7rem 1.5rem;
-            margin: 0 0.5rem;
-            background-color: #e3f2fd;
-            color: #004080;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .tabs button:hover {
-            background-color: #bbdefb;
-            color: #003366;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .tabs button:active {
-            transform: translateY(0);
-            box-shadow: none;
-        }
-
-        .section {
-            display: none;
-            margin-top: 2rem;
-        }
-
-        .section h2 {
-            color: #004080;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-            background-color: #ffffff;
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-
-        th, td {
-            padding: 0.8rem;
-        }
-
-        footer {
-            background-color: #004080;
-            color: #fff;
-            text-align: center;
-            padding: 1rem 0;
-            margin-top: 2rem;
-        }
-
-        footer p {
-            margin: 0;
-        }
-
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-
-            header p {
-                font-size: 1rem;
-            }
-
-            .login-container, .dashboard-container {
-                padding: 1rem;
-                margin: 1rem;
-            }
-
-            input, textarea, button {
-                font-size: 0.9rem;
-                padding: 0.6rem;
-            }
-
-            .tabs button {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            header h1 {
-                font-size: 3rem;
-            }
-
-            header p {
-                font-size: 1.3rem;
-            }
-
-            .login-container, .dashboard-container {
-                max-width: 1000px;
-                padding: 3rem;
-            }
-
-            input, textarea, button {
-                font-size: 1.1rem;
-                padding: 1rem;
-            }
-
-            .tabs button {
-                padding: 1rem 2rem;
-                font-size: 1rem;
-            }
-        }
-    </style>
 </head>
 <body>
     <header>
-        <h1>Dairy Care Management System</h1>
-        <p>Role-Based Management with Automated Notifications</p>
+        <h1>Dairy Management System</h1>
+        <p>Designed by SDA Production for Dairy Farms in Pakistan</p>
     </header>
 
-    <!-- Login Page -->
     <main id="loginPage">
         <div class="login-container">
             <h2>Login</h2>
@@ -199,7 +23,6 @@
         </div>
     </main>
 
-    <!-- Dashboard -->
     <main id="dashboard" class="hidden">
         <div class="dashboard-container">
             <h2>Welcome, <span id="userRole"></span></h2>
@@ -211,9 +34,7 @@
                 <button id="economicsTab" onclick="showSection('economicsSection')">Economics</button>
             </div>
 
-            <!-- Sections -->
             <div id="birthDeathSection" class="section hidden">
-                <h2>Birth & Death Entry</h2>
                 <form id="birthDeathForm">
                     <input type="text" id="motherName" placeholder="Mother Name/Number" required>
                     <input type="text" id="babyName" placeholder="Baby Name/Number" required>
@@ -224,74 +45,22 @@
                     </select>
                     <input type="date" id="recordDate" required>
                     <textarea id="details" placeholder="Details" required></textarea>
-                    <input type="file" id="imageUpload" accept="image/*" required>
+                    <input type="file" id="imageUpload" accept="image/*">
                     <button type="button" onclick="addRecord('birthDeath')">Add Record</button>
                 </form>
-                <div id="birthDeathRecords"></div>
             </div>
 
             <div id="feedManagementSection" class="section hidden">
-                <h2>Feed Management</h2>
                 <form id="feedForm">
                     <input type="text" id="feedType" placeholder="Feed Type" required>
                     <input type="number" id="feedQuantity" placeholder="Quantity (kg)" required>
                     <input type="date" id="feedDate" required>
                     <button type="button" onclick="addRecord('feedManagement')">Add Feed</button>
                 </form>
-                <div id="feedManagementRecords"></div>
-            </div>
-
-            <div id="feedFormulationSection" class="section hidden">
-                <h2>Feed Formulation</h2>
-                <table id="feedItemsTable">
-                    <thead>
-                        <tr>
-                            <th>Feed Item</th>
-                            <th>Price per kg (PKR)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Corn</td>
-                            <td>50</td>
-                        </tr>
-                        <tr>
-                            <td>Wheat Bran</td>
-                            <td>40</td>
-                        </tr>
-                        <tr>
-                            <td>Rice Bran</td>
-                            <td>30</td>
-                        </tr>
-                        <tr>
-                            <td>Soybean Meal</td>
-                            <td>90</td>
-                        </tr>
-                        <tr>
-                            <td>Cottonseed Meal</td>
-                            <td>70</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <form id="feedFormulationInput">
-                    <input type="number" id="animalWeight" placeholder="Animal Weight (kg)" required>
-                    <input type="number" id="milkProduction" placeholder="Milk Production (Liters)" required>
-                    <button type="button" onclick="suggestFeedFormulation()">Suggest Feed</button>
-                </form>
-                <div id="feedFormulationOutput"></div>
             </div>
 
             <div id="recordsSection" class="section hidden">
                 <h2>Records</h2>
-                <form id="recordFilterForm">
-                    <select id="recordTypeFilter" onchange="filterRecords()">
-                        <option value="all">All Records</option>
-                        <option value="birthDeath">Birth & Death</option>
-                        <option value="feedManagement">Feed Management</option>
-                        <option value="feedFormulation">Feed Formulation</option>
-                        <option value="economics">Economics</option>
-                    </select>
-                </form>
                 <table id="recordsTable">
                     <thead>
                         <tr>
@@ -300,75 +69,16 @@
                             <th>Details</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
-            </div>
-
-            <div id="economicsSection" class="section hidden">
-                <h2>Economics</h2>
-                <form id="economicsForm">
-                    <input type="text" id="expenseType" placeholder="Expense Type" required>
-                    <input type="number" id="dailyExpenditure" placeholder="Total Daily Expenditure (PKR)" required>
-                    <input type="number" id="milkProduced" placeholder="Milk Produced (Liters)" required>
-                    <input type="number" id="milkPrice" placeholder="Price of Milk per Liter (PKR)" required>
-                    <input type="date" id="econDate" required>
-                    <button type="button" onclick="calculateProfit()">Calculate Profit</button>
-                </form>
-                <div id="economicsSummary">
-                    <h3>Profit Summary</h3>
-                    <p id="profitOutput">Enter data to calculate the profit.</p>
-                </div>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 Dairy Care Management System Designed by SDA Productions. All Rights Reserved.</p>
+        <p>&copy; 2025 Dairy Care Management System. All Rights Reserved.</p>
     </footer>
 
-    <script>
-        function calculateProfit() {
-            const dailyExpenditure = parseFloat(document.getElementById("dailyExpenditure").value) || 0;
-            const milkProduced = parseFloat(document.getElementById("milkProduced").value) || 0;
-            const milkPrice = parseFloat(document.getElementById("milkPrice").value) || 0;
-
-            const totalIncome = milkProduced * milkPrice;
-            const profit = totalIncome - dailyExpenditure;
-
-            document.getElementById("profitOutput").innerText = `Total Profit: PKR ${profit.toFixed(2)} (Income: PKR ${totalIncome.toFixed(2)}, Expenditure: PKR ${dailyExpenditure.toFixed(2)})`;
-        }
-
-        function suggestFeedFormulation() {
-            const animalWeight = parseFloat(document.getElementById("animalWeight").value) || 0;
-            const milkProduction = parseFloat(document.getElementById("milkProduction").value) || 0;
-
-            const feedItems = [
-                { name: "Corn", price: 50 },
-                { name: "Wheat Bran", price: 40 },
-                { name: "Rice Bran", price: 30 },
-                { name: "Soybean Meal", price: 90 },
-                { name: "Cottonseed Meal", price: 70 }
-            ];
-
-            const totalFeedRequirement = animalWeight * 0.025 + milkProduction * 0.4; // Example formula
-
-            let suggestedFeeds = [];
-            let totalCost = 0;
-
-            feedItems.forEach(feed => {
-                const feedAmount = (totalFeedRequirement / feedItems.length).toFixed(2);
-                const cost = feedAmount * feed.price;
-                totalCost += cost;
-                suggestedFeeds.push(`${feed.name}: ${feedAmount} kg (Cost: PKR ${cost.toFixed(2)})`);
-            });
-
-            document.getElementById("feedFormulationOutput").innerHTML = `
-                <h3>Suggested Feed Formulation</h3>
-                <ul>${suggestedFeeds.map(feed => `<li>${feed}</li>`).join("")}</ul>
-                <p><strong>Total Feed Cost: PKR ${totalCost.toFixed(2)}</strong></p>
-            `;
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
