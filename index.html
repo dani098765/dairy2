@@ -3,108 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dairy Care Management System</title>
+    <title>Dairy Management System</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
         <h1>Dairy Management System</h1>
-        <p>Designed by SDA Production for Dairy Farms in Pakistan</p>
+        <p>Your centralized solution for dairy farm management</p>
     </header>
 
-    <!-- Login Page -->
-    <main id="loginPage">
-        <div class="login-container">
-            <h2>Login</h2>
-            <form id="loginForm">
-                <input type="text" id="loginUsername" placeholder="Username" required>
-                <input type="password" id="loginPassword" placeholder="Password" required>
-                <button type="button" onclick="login()">Login</button>
-            </form>
-        </div>
-    </main>
-
-    <!-- Dashboard -->
-    <main id="dashboard" class="hidden">
-        <div class="dashboard-container">
-            <h2>Welcome, <span id="userRole"></span></h2>
-            <div class="tabs">
-                <button id="birthDeathTab" onclick="showSection('birthDeathSection')">Birth & Death Entry</button>
-                <button id="feedManagementTab" onclick="showSection('feedManagementSection')">Feed Management</button>
-                <button id="feedFormulationTab" onclick="showSection('feedFormulationSection')">Feed Formulation</button>
-                <button id="recordsTab" onclick="showSection('recordsSection')">Records</button>
-                <button id="economicsTab" onclick="showSection('economicsSection')">Economics</button>
+    <main>
+        <!-- Login Section -->
+        <section id="login-section">
+            <div class="form-container">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" required placeholder="Enter your username">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" required placeholder="Enter your password">
+                    <button type="submit">Login</button>
+                </form>
+                <p id="login-error" class="error hidden">Invalid username or password.</p>
             </div>
+        </section>
 
-            <!-- Birth & Death Section -->
-            <div id="birthDeathSection" class="section hidden">
-                <h2>Birth & Death Entry</h2>
-                <form id="birthDeathForm">
-                    <input type="text" id="motherName" placeholder="Mother Name/Number" required>
-                    <input type="text" id="babyName" placeholder="Baby Name/Number" required>
-                    <select id="gender" required>
-                        <option value="">Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="hidden">
+            <h2>Welcome, <span id="user-role"></span></h2>
+            <nav class="tabs">
+                <button onclick="showTab('animal-records')">Animal Records</button>
+                <button onclick="showTab('feed-management')">Feed Management</button>
+                <button onclick="showTab('economics')">Economics</button>
+                <button onclick="showTab('alerts')">Alerts</button>
+                <button onclick="showTab('reports')">Reports</button>
+            </nav>
+
+            <!-- Animal Records -->
+            <div id="animal-records" class="tab-content hidden">
+                <h3>Animal Records</h3>
+                <form id="animal-form">
+                    <label for="animal-name">Animal Name:</label>
+                    <input type="text" id="animal-name" required>
+                    <label for="animal-type">Animal Type:</label>
+                    <select id="animal-type" required>
+                        <option value="cow">Cow</option>
+                        <option value="buffalo">Buffalo</option>
                     </select>
-                    <input type="date" id="recordDate" required>
-                    <textarea id="details" placeholder="Details" required></textarea>
-                    <input type="file" id="imageUpload" accept="image/*">
-                    <button type="button" onclick="addRecord('birthDeath')">Add Record</button>
+                    <label for="birth-date">Birth Date:</label>
+                    <input type="date" id="birth-date" required>
+                    <button type="submit">Add Record</button>
                 </form>
+                <div id="animal-records-table"></div>
             </div>
 
-            <!-- Feed Management Section -->
-            <div id="feedManagementSection" class="section hidden">
-                <h2>Feed Management</h2>
-                <form id="feedForm">
-                    <input type="text" id="feedType" placeholder="Feed Type" required>
-                    <input type="number" id="feedQuantity" placeholder="Quantity (kg)" required>
-                    <input type="date" id="feedDate" required>
-                    <button type="button" onclick="addRecord('feedManagement')">Add Feed</button>
+            <!-- Feed Management -->
+            <div id="feed-management" class="tab-content hidden">
+                <h3>Feed Management</h3>
+                <form id="feed-form">
+                    <label for="feed-type">Feed Type:</label>
+                    <input type="text" id="feed-type" required>
+                    <label for="quantity">Quantity (kg):</label>
+                    <input type="number" id="quantity" required>
+                    <label for="feed-date">Date:</label>
+                    <input type="date" id="feed-date" required>
+                    <button type="submit">Add Feed Record</button>
                 </form>
+                <div id="feed-records-table"></div>
             </div>
 
-            <!-- Records Section -->
-            <div id="recordsSection" class="section hidden">
-                <h2>Records</h2>
-                <form id="recordFilterForm">
-                    <select id="recordTypeFilter" onchange="filterRecords()">
-                        <option value="all">All Records</option>
-                        <option value="birthDeath">Birth & Death</option>
-                        <option value="feedManagement">Feed Management</option>
-                        <option value="economics">Economics</option>
-                    </select>
+            <!-- Economics -->
+            <div id="economics" class="tab-content hidden">
+                <h3>Economics</h3>
+                <form id="economics-form">
+                    <label for="expenditure">Expenditure (PKR):</label>
+                    <input type="number" id="expenditure" required>
+                    <label for="milk-production">Milk Produced (liters):</label>
+                    <input type="number" id="milk-production" required>
+                    <label for="milk-price">Price per Liter (PKR):</label>
+                    <input type="number" id="milk-price" required>
+                    <button type="submit">Calculate Profit</button>
                 </form>
-                <table id="recordsTable">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Type</th>
-                            <th>Details</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div id="profit-summary"></div>
             </div>
 
-            <!-- Economics Section -->
-            <div id="economicsSection" class="section hidden">
-                <h2>Economics</h2>
-                <form id="economicsForm">
-                    <input type="text" id="expenseType" placeholder="Expense Type" required>
-                    <input type="number" id="amount" placeholder="Amount (PKR)" required>
-                    <input type="date" id="econDate" required>
-                    <button type="button" onclick="addEconomicsRecord()">Add Record</button>
-                </form>
+            <!-- Alerts -->
+            <div id="alerts" class="tab-content hidden">
+                <h3>Alerts</h3>
+                <p>Email notifications will be sent for vaccinations and other reminders.</p>
             </div>
-        </div>
+
+            <!-- Reports -->
+            <div id="reports" class="tab-content hidden">
+                <h3>Reports</h3>
+                <canvas id="animal-chart" width="400" height="200"></canvas>
+            </div>
+        </section>
     </main>
 
     <footer>
         <p>&copy; 2025 Dairy Management System. All Rights Reserved.</p>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
