@@ -1,123 +1,91 @@
-// Initialize EmailJS (replace YOUR_PUBLIC_KEY with your actual public key)
-emailjs.init("ftHMBZfK0Pum-8GGK");
+// JavaScript for Feed Calculation Web App
 
-// Users and Roles
-const users = {
-    admin: { role: "Admin", password: "12345" },
-    vetdoctor: { role: "Vet Doctor", password: "12345" },
-    farmowner: { role: "Farm Owner", password: "12345" },
-};
+const feedOptions = [
+    { name: "Corn", unitPrice: 50, maxInclusion: 30 },
+    { name: "Soybean Meal", unitPrice: 90, maxInclusion: 20 },
+    { name: "Wheat Bran", unitPrice: 40, maxInclusion: 25 },
+    { name: "Rice Bran", unitPrice: 35, maxInclusion: 25 },
+    { name: "Cottonseed Meal", unitPrice: 70, maxInclusion: 15 }
+    // Add more feed options as needed
+];
 
-// Login
-document.getElementById("login-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+function populateFeedSelection() {
+    const feedSelection = document.getElementById("feed-selection");
 
-    if (users[username] && users[username].password === password) {
-        document.getElementById("login-section").classList.add("hidden");
-        document.getElementById("dashboard").classList.remove("hidden");
-        document.getElementById("user-role").textContent = users[username].role;
-    } else {
-        document.getElementById("login-error").classList.remove("hidden");
-    }
-});
-
-// Show Tabs
-function showTab(tabId) {
-    document.querySelectorAll(".tab-content").forEach((tab) => tab.classList.add("hidden"));
-    document.getElementById(tabId).classList.remove("hidden");
+    feedOptions.forEach(feed => {
+        const option = document.createElement("option");
+        option.value = feed.name;
+        option.textContent = `${feed.name} (PKR ${feed.unitPrice}/kg, Max: ${feed.maxInclusion}%)`;
+        feedSelection.appendChild(option);
+    });
 }
 
-// Send Email Notification
-function sendEmailNotification(subject, message) {
-    const templateParams = {
-        subject: subject,
-        message: message,
-        to_email: "example@example.com", // Replace with the recipient's email
-    };
+document.addEventListener("DOMContentLoaded", () => {
+    populateFeedSelection();
 
-    emailjs
-        .send("service_s81t1xq", "template_ub4i2qm", templateParams)
-        .then(() => {
-            console.log("Email sent successfully!");
-        })
-        .catch((error) => {
-            console.error("Error sending email:", error);
+    const feedForm = document.getElementById("formulation-form");
+
+    feedForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const animalWeight = parseFloat(document.getElementById("animal-weight").value);
+        const milkQuantity = parseFloat(document.getElementById("milk-quantity").value);
+        const fatPercentage = parseFloat(document.getElementById("fat-percentage").value);
+
+        if (isNaN(animalWeight) || isNaN(milkQuantity) || isNaN(fatPercentage)) {
+            alert("Please provide valid numeric values for all fields.");
+            return;
+        }
+
+        const totalFeedRequirement = (animalWeight * 0.025) + (milkQuantity * 0.4);
+
+        const results = feedOptions.map(feed => {
+            const inclusionKg = (totalFeedRequirement * feed.maxInclusion) / 100;
+            const cost = inclusionKg * feed.unitPrice;
+            return {
+                name: feed.name,
+                inclusionKg: inclusionKg.toFixed(2),
+                cost: cost.toFixed(2)
+            };
         });
-}
 
-// Add Animal Record
-document.getElementById("animal-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const animalName = document.getElementById("animal-name").value;
-    const animalType = document.getElementById("animal-type").value;
-    const birthDate = document.getElementById("birth-date").value;
-
-    const message = `Animal Record Added:\nName: ${animalName}\nType: ${animalType}\nBirth Date: ${birthDate}`;
-    sendEmailNotification("New Animal Record", message);
-
-    alert("Animal record added successfully and email notification sent!");
-    e.target.reset();
+        displayFormulationResults(results, totalFeedRequirement);
+    });
 });
 
-// Add Feed Record
-document.getElementById("feed-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const feedType = document.getElementById("feed-type").value;
-    const quantity = document.getElementById("quantity").value;
-    const date = document.getElementById("feed-date").value;
+function displayFormulationResults(results, totalFeedRequirement) {
+    const resultsDiv = document.getElementById("formulation-results");
+    resultsDiv.innerHTML = "";
 
-    const message = `Feed Record Added:\nFeed Type: ${feedType}\nQuantity: ${quantity} kg\nDate: ${date}`;
-    sendEmailNotification("New Feed Record", message);
+    const table = document.createElement("table");
 
-    alert("Feed record added successfully and email notification sent!");
-    e.target.reset();
-});
+    const headerRow = document.createElement("tr");
+    ["Feed Name", "Inclusion (kg)", "Cost (PKR)"].forEach(headerText => {
+        const th = document.createElement("th");
+        th.textContent = headerText;
+        headerRow.appendChild(th);
+    });
+    table.appendChild(headerRow);
 
-// Economics Calculation
-document.getElementById("economics-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const expenditure = parseFloat(document.getElementById("expenditure").value);
-    const milkProduction = parseFloat(document.getElementById("milk-production").value);
-    const milkPrice = parseFloat(document.getElementById("milk-price").value);
+    results.forEach(result => {
+        const row = document.createElement("tr");
 
-    const income = milkProduction * milkPrice;
-    const profit = income - expenditure;
+        Object.values(result).forEach(value => {
+            const td = document.createElement("td");
+            td.textContent = value;
+            row.appendChild(td);
+        });
 
-    const message = `Economics Record:\nExpenditure: PKR ${expenditure}\nIncome: PKR ${income}\nProfit: PKR ${profit}`;
-    sendEmailNotification("Economics Update", message);
-
-    document.getElementById("profit-summary").textContent = `Profit: PKR ${profit.toFixed(2)}`;
-    alert("Economics calculated successfully and email notification sent!");
-    e.target.reset();
-});
-
-// Feed Formulation Example
-document.getElementById("formulation-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const weight = parseFloat(document.getElementById("animal-weight").value);
-    const milk = parseFloat(document.getElementById("milk-quantity").value);
-
-    const feeds = [
-        { name: "Corn", price: 50 },
-        { name: "Soybean Meal", price: 100 },
-        { name: "Wheat Bran", price: 30 },
-    ];
-
-    let results = "";
-    let totalCost = 0;
-
-    feeds.forEach((feed) => {
-        const required = (weight + milk) / feeds.length;
-        const cost = required * feed.price;
-        totalCost += cost;
-        results += `${feed.name}: ${required.toFixed(2)}kg (Cost: PKR ${cost.toFixed(2)})<br>`;
+        table.appendChild(row);
     });
 
-    const message = `Feed Formulation:\nAnimal Weight: ${weight}\nMilk Requirement: ${milk}\nTotal Cost: PKR ${totalCost}`;
-    sendEmailNotification("Feed Formulation Suggestion", message);
+    const totalRow = document.createElement("tr");
+    totalRow.innerHTML = `
+        <td><strong>Total</strong></td>
+        <td><strong>${totalFeedRequirement.toFixed(2)} kg</strong></td>
+        <td></td>
+    `;
+    table.appendChild(totalRow);
 
-    document.getElementById("feed-results").innerHTML = results;
-    alert("Feed formulation calculated and email notification sent!");
-});
+    resultsDiv.appendChild(table);
+}
