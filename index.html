@@ -12,6 +12,7 @@
         <p>Designed by SDA Production for Dairy Farms in Pakistan</p>
     </header>
 
+    <!-- Login Page -->
     <main id="loginPage">
         <div class="login-container">
             <h2>Login</h2>
@@ -23,6 +24,7 @@
         </div>
     </main>
 
+    <!-- Dashboard -->
     <main id="dashboard" class="hidden">
         <div class="dashboard-container">
             <h2>Welcome, <span id="userRole"></span></h2>
@@ -34,7 +36,9 @@
                 <button id="economicsTab" onclick="showSection('economicsSection')">Economics</button>
             </div>
 
+            <!-- Birth & Death Section -->
             <div id="birthDeathSection" class="section hidden">
+                <h2>Birth & Death Entry</h2>
                 <form id="birthDeathForm">
                     <input type="text" id="motherName" placeholder="Mother Name/Number" required>
                     <input type="text" id="babyName" placeholder="Baby Name/Number" required>
@@ -50,7 +54,9 @@
                 </form>
             </div>
 
+            <!-- Feed Management Section -->
             <div id="feedManagementSection" class="section hidden">
+                <h2>Feed Management</h2>
                 <form id="feedForm">
                     <input type="text" id="feedType" placeholder="Feed Type" required>
                     <input type="number" id="feedQuantity" placeholder="Quantity (kg)" required>
@@ -59,8 +65,17 @@
                 </form>
             </div>
 
+            <!-- Records Section -->
             <div id="recordsSection" class="section hidden">
                 <h2>Records</h2>
+                <form id="recordFilterForm">
+                    <select id="recordTypeFilter" onchange="filterRecords()">
+                        <option value="all">All Records</option>
+                        <option value="birthDeath">Birth & Death</option>
+                        <option value="feedManagement">Feed Management</option>
+                        <option value="economics">Economics</option>
+                    </select>
+                </form>
                 <table id="recordsTable">
                     <thead>
                         <tr>
@@ -72,11 +87,22 @@
                     <tbody></tbody>
                 </table>
             </div>
+
+            <!-- Economics Section -->
+            <div id="economicsSection" class="section hidden">
+                <h2>Economics</h2>
+                <form id="economicsForm">
+                    <input type="text" id="expenseType" placeholder="Expense Type" required>
+                    <input type="number" id="amount" placeholder="Amount (PKR)" required>
+                    <input type="date" id="econDate" required>
+                    <button type="button" onclick="addEconomicsRecord()">Add Record</button>
+                </form>
+            </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 Dairy Care Management System. All Rights Reserved.</p>
+        <p>&copy; 2025 Dairy Management System. All Rights Reserved.</p>
     </footer>
 
     <script src="script.js"></script>
