@@ -2,58 +2,53 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    background-color: #f9f9f9;
+    color: #333;
 }
 
 header {
-    background-color: #004080;
-    color: white;
+    background: linear-gradient(90deg, #0073e6, #004080);
+    color: #ffffff;
     text-align: center;
-    padding: 1rem 0;
+    padding: 2rem 0;
 }
 
 header h1 {
     margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
 }
 
 header p {
     margin: 0.5rem 0 0;
-    font-size: 1.1rem;
-}
-
-.main {
-    padding: 1rem;
-}
-
-.hidden {
-    display: none;
+    font-size: 1.2rem;
+    font-style: italic;
 }
 
 .login-container, .dashboard-container {
+    background-color: #ffffff;
     margin: 2rem auto;
-    max-width: 600px;
-    text-align: center;
-    padding: 1.5rem;
-    border: 1px solid #ddd;
+    max-width: 800px;
     border-radius: 10px;
-    background-color: #f9f9f9;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 input, textarea, button {
     width: calc(100% - 2rem);
-    padding: 0.5rem;
-    margin: 0.5rem auto;
-    display: block;
+    margin: 1rem auto;
+    padding: 0.8rem;
     font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 button {
     background-color: #004080;
-    color: white;
+    color: #fff;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
@@ -62,32 +57,48 @@ button:hover {
 
 .tabs {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    margin: 1rem 0;
+    gap: 0.5rem;
 }
 
 .tabs button {
-    margin: 0 0.5rem;
-    padding: 0.7rem 1rem;
+    border-radius: 20px;
     border: 1px solid #ddd;
-    background-color: white;
+    padding: 0.7rem 1.5rem;
+    margin: 0 0.5rem;
+    background-color: #e3f2fd;
+    color: #004080;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .tabs button:hover {
-    background-color: #004080;
-    color: white;
+    background-color: #bbdefb;
+    color: #003366;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.table-container {
-    overflow-x: auto;
-    margin: 1rem 0;
+.tabs button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.section {
+    display: none;
+    margin-top: 2rem;
+}
+
+.section h2 {
+    color: #004080;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1rem auto;
+    margin-top: 1rem;
+    background-color: #ffffff;
 }
 
 table, th, td {
@@ -96,5 +107,67 @@ table, th, td {
 }
 
 th, td {
-    padding: 0.5rem;
+    padding: 0.8rem;
+}
+
+footer {
+    background-color: #004080;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+}
+
+footer p {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    .login-container, .dashboard-container {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    input, textarea, button {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+    }
+
+    .tabs button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    header h1 {
+        font-size: 3rem;
+    }
+
+    header p {
+        font-size: 1.3rem;
+    }
+
+    .login-container, .dashboard-container {
+        max-width: 1000px;
+        padding: 3rem;
+    }
+
+    input, textarea, button {
+        font-size: 1.1rem;
+        padding: 1rem;
+    }
+
+    .tabs button {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+    }
 }
