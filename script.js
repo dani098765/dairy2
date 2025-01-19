@@ -63,17 +63,20 @@ function addRecord(type) {
     const currentDate = new Date().toISOString().split("T")[0];
 
     if (type === "birthDeath") {
-        const animalName = document.getElementById("animalName").value;
+        const motherName = document.getElementById("motherName").value;
+        const babyName = document.getElementById("babyName").value;
+        const gender = document.getElementById("gender").value;
         const recordDate = document.getElementById("recordDate").value || currentDate;
         const details = document.getElementById("details").value;
+        const imageFile = document.getElementById("imageUpload").files[0]?.name || "No image uploaded";
 
-        if (animalName && details) {
+        if (motherName && babyName && gender && details) {
             recordDetails = {
                 date: recordDate,
                 type: "Birth/Death",
-                description: `Animal: ${animalName}, Details: ${details}`,
+                description: `Mother: ${motherName}, Baby: ${babyName}, Gender: ${gender}, Details: ${details}, Image: ${imageFile}`,
             };
-            sendEmailNotification("Birth/Death Entry", animalName, recordDate, details);
+            sendEmailNotification("Birth/Death Entry", babyName, recordDate, `Mother: ${motherName}, Gender: ${gender}, Details: ${details}, Image: ${imageFile}`);
         } else {
             alert("Please fill out all fields for Birth/Death Entry.");
             return;
@@ -167,4 +170,14 @@ function sendEmailNotification(recordType, recordName, recordDate, details) {
         .catch((error) => {
             console.error("Error sending email:", error);
         });
+}
+
+function filterRecords() {
+    const filterValue = document.getElementById("recordTypeFilter").value;
+    const tableRows = document.querySelectorAll("#recordsTable tbody tr");
+
+    tableRows.forEach(row => {
+        const type = row.getAttribute("data-type");
+        row.style.display = (filterValue === "all" || type === filterValue) ? "" : "none";
+    });
 }
