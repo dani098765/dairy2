@@ -26,6 +26,7 @@ function login() {
         document.getElementById("userRole").textContent = currentUser.role;
 
         configureDashboard(currentUser.permissions);
+        showSection("dashboard");
     } else {
         alert("Invalid username or password.");
     }
