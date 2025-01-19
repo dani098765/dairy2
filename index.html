@@ -3,109 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dairy Management System</title>
+    <title>Feed Calculation Web App</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script src="script.js" defer></script>
 </head>
 <body>
     <header>
-        <h1>Dairy Management System</h1>
-        <p>Your centralized solution for dairy farm management</p>
+        <h1>Feed Calculation Web App</h1>
+        <p>Optimize your feed formulation for cost-effectiveness</p>
     </header>
 
     <main>
-        <!-- Login Section -->
-        <section id="login-section">
-            <div class="form-container">
-                <h2>Login</h2>
-                <form id="login-form">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" required placeholder="Enter your username">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" required placeholder="Enter your password">
-                    <button type="submit">Login</button>
-                </form>
-                <p id="login-error" class="error hidden">Invalid username or password.</p>
-            </div>
-        </section>
+        <section id="feed-formulation">
+            <h2>Feed Formulation</h2>
+            <form id="formulation-form">
+                <label for="animal-weight">Animal Weight (kg):</label>
+                <input type="number" id="animal-weight" placeholder="Enter animal weight" required>
 
-        <!-- Dashboard Section -->
-        <section id="dashboard" class="hidden">
-            <h2>Welcome, <span id="user-role"></span></h2>
-            <nav class="tabs">
-                <button onclick="showTab('animal-records')">Animal Records</button>
-                <button onclick="showTab('feed-management')">Feed Management</button>
-                <button onclick="showTab('economics')">Economics</button>
-                <button onclick="showTab('alerts')">Alerts</button>
-                <button onclick="showTab('reports')">Reports</button>
-            </nav>
+                <label for="milk-production">Milk Production (liters):</label>
+                <input type="number" id="milk-production" placeholder="Enter milk production" required>
 
-            <!-- Animal Records -->
-            <div id="animal-records" class="tab-content hidden">
-                <h3>Animal Records</h3>
-                <form id="animal-form">
-                    <label for="animal-name">Animal Name:</label>
-                    <input type="text" id="animal-name" required>
-                    <label for="animal-type">Animal Type:</label>
-                    <select id="animal-type" required>
-                        <option value="cow">Cow</option>
-                        <option value="buffalo">Buffalo</option>
-                    </select>
-                    <label for="birth-date">Birth Date:</label>
-                    <input type="date" id="birth-date" required>
-                    <button type="submit">Add Record</button>
-                </form>
-                <div id="animal-records-table"></div>
-            </div>
+                <label for="fat-percentage">Fat Percentage (%):</label>
+                <input type="number" id="fat-percentage" placeholder="Enter fat percentage" required>
 
-            <!-- Feed Management -->
-            <div id="feed-management" class="tab-content hidden">
-                <h3>Feed Management</h3>
-                <form id="feed-form">
-                    <label for="feed-type">Feed Type:</label>
-                    <input type="text" id="feed-type" required>
-                    <label for="quantity">Quantity (kg):</label>
-                    <input type="number" id="quantity" required>
-                    <label for="feed-date">Date:</label>
-                    <input type="date" id="feed-date" required>
-                    <button type="submit">Add Feed Record</button>
-                </form>
-                <div id="feed-records-table"></div>
-            </div>
+                <label for="feed-selection">Select Feeds:</label>
+                <div id="feed-selection">
+                    <!-- Dynamic feed dropdowns will be added here -->
+                </div>
 
-            <!-- Economics -->
-            <div id="economics" class="tab-content hidden">
-                <h3>Economics</h3>
-                <form id="economics-form">
-                    <label for="expenditure">Expenditure (PKR):</label>
-                    <input type="number" id="expenditure" required>
-                    <label for="milk-production">Milk Produced (liters):</label>
-                    <input type="number" id="milk-production" required>
-                    <label for="milk-price">Price per Liter (PKR):</label>
-                    <input type="number" id="milk-price" required>
-                    <button type="submit">Calculate Profit</button>
-                </form>
-                <div id="profit-summary"></div>
-            </div>
+                <button type="button" id="add-feed">Add Feed</button>
 
-            <!-- Alerts -->
-            <div id="alerts" class="tab-content hidden">
-                <h3>Alerts</h3>
-                <p>Email notifications will be sent for vaccinations and other reminders.</p>
-            </div>
+                <div id="feed-inputs">
+                    <!-- User-selected feed inputs will be displayed here -->
+                </div>
 
-            <!-- Reports -->
-            <div id="reports" class="tab-content hidden">
-                <h3>Reports</h3>
-                <canvas id="animal-chart" width="400" height="200"></canvas>
+                <button type="submit">Calculate Feed</button>
+            </form>
+
+            <div id="formulation-results" style="display: none;">
+                <h3>Optimal Feed Formulation</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feed</th>
+                            <th>Inclusion (kg)</th>
+                            <th>Unit Price (PKR)</th>
+                            <th>Total Cost (PKR)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="result-rows">
+                        <!-- Calculation results will be displayed here -->
+                    </tbody>
+                </table>
+                <p id="total-cost"></p>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Dairy Management System. All Rights Reserved.</p>
+        <p>&copy; 2025 Feed Calculation Web App. All Rights Reserved.</p>
     </footer>
 </body>
 </html>
